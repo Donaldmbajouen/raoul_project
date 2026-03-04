@@ -1,0 +1,32 @@
+@import url('https://unpkg.com/aos@2.3.1/dist/aos.css');
+@import 'tailwindcss';
+
+/* ============================================================
+   VARIABLES CSS MINIMALES
+   ============================================================ */
+@theme {
+  /* Couleurs */
+  --color-primary: #3B7BF8;
+  --color-primary-hover: #2563EB;
+  
+  /* Typographie */
+  --font-display: 'Poppins', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+/* ============================================================
+   STYLES GLOBAUX MINIMAUX
+   ============================================================ */
+body {
+  font-family: var(--font-body);
+}
+
+/* Animation pour le badge flottant */
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 3s ease-in-out infinite;
+}

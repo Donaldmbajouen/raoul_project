@@ -1,0 +1,111 @@
+Brief pour le développement du site web
+1. Référence et inspiration
+    • Le site à reproduire en modèle principal est inovixora.com.
+
+    • Le design, les animations et la structure doivent être reproduits au millimètre près.
+
+    • Une autre source d’inspiration : kobecorporation.com, surtout pour les rubriques Programme et Processus, qui doivent être reproduites exactement.
+
+    • Pour les textes des rubriques issues de Kobe Corporation, il peut s’inspirer ou adapter exactement comme il l’a fait pour Inovixora.
+
+2. Identité visuelle et couleurs
+    • Je fournirai le logo à intégrer.
+
+    • Couleurs principales à utiliser pour tout le site : celles de Kobe Corporation.
+
+    • Pour Inovixora, on conserve juste les couleurs de référence pour certaines sections, mais l’ensemble du site utilisera les couleurs de Kobe Corporation.
+
+    • Icônes des réseaux sociaux : ajouter des placeholders pour l’instant, les liens seront fournis plus tard.
+
+3. Langues
+    • La plateforme sera française par défaut, mais il doit y avoir un bouton pour basculer entre français et anglais à tout moment.
+
+4. Structure du site
+Le site doit contenir les rubriques suivantes :
+1. Accueil
+2. Actualités / Blog
+3. À propos
+4. Services
+5. Réalisations
+6. Formations
+7. Réservations
+8. Postuler
+9. Programme
+10. Processus
+Les trois rubriques ajoutées par rapport à Inovixora sont : Postuler, Réservations, Programme.
+Pour ces nouvelles rubriques et tout autre détail, je donnerai les instructions exactes au plus tard demain.
+
+5. Services
+    • Reproduire les services de Inovixora, en les segmentant clairement en deux catégories : GL et SR.
+
+    • Ajouter les services suivants :
+        ◦ Installation et configuration des réseaux informatiques
+
+        ◦ Installation et maintenance des serveurs
+
+        ◦ Cloud et Hébergement
+
+        ◦ Télécom et IoT
+
+        ◦ Data et Intelligence artificielle (analyse des données)
+
+        ◦ Intégration des API
+
+        ◦ Conception des agents IA
+
+        ◦ IA & Automatisation
+
+        ◦ Réseaux et internet
+
+        ◦ Conception des logiciels (gestion, facturation, stock, caisse, scolaire, hospitalier, billetterie…)
+
+        ◦ Formation en informatique
+
+        ◦ Conseils et audit IT
+
+    • Si d’autres services pertinents sont identifiés, ils peuvent être ajoutés.
+
+6. À propos
+    • S’inspirer de Kobe Corporation pour le texte et la mise en page.
+
+    • Ajouter les logos des partenaires (je fournirai certains logos ; d’autres peuvent être ajoutés).
+
+    • Ne pas inclure les photos de l’équipe ou des fondateurs.
+
+7. Réalisations
+    • Ajouter des projets et réalisations, en s’inspirant de Inovixora.
+
+    • Tu peux inventer des exemples si nécessaire, mais garder le style professionnel.
+
+8. Partenaires et témoignages
+    • Ajouter 20+ partenaires.
+
+    • Ajouter des témoignages.
+
+9. Textes
+    • Les textes peuvent être copiés de Inovixora, mais doivent être légèrement modifiés pour les rendre plus percutants et adaptés à notre identité.
+
+    • Pour les rubriques venant de Kobe Corporation, il peut faire pareil, en s’inspirant ou adaptant exactement comme pour Inovixora.
+
+10. Rubriques Programme et Processus
+    • Reproduire exactement ce que tu verras sur Kobecorporation.com.
+
+    • Liens spécifiques pour Programme :
+        ◦ Postuler pour un stage → renvoie vers la rubrique Réservations
+
+        ◦ Rejoindre le programme Freelance → renvoie vers le formulaire de la page Contact
+
+11. Points à garder à l’esprit
+    • Respecter la structure, les couleurs et les animations.
+
+    • Gérer les images pour que le site soit visuellement attractif (tu peux créer ou inventer des images si nécessaire).
+
+    • Les icônes et liens des réseaux sociaux seront ajoutés ultérieurement.
+
+    • Les instructions précises pour les nouvelles rubriques et autres détails seront communiquées au plus tard demain.
+
+💡 Remarque pour le développeur :
+N’hésite pas à poser des questions si quelque chose n’est pas clair, surtout pour :
+- Le découpage des services GL / SR
+- Les liens exacts pour les rubriques Réservations et Programme
+- Les textes à adapter dans chaque section
