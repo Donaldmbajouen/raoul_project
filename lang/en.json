@@ -176,9 +176,7 @@
     "blog.article9.title": "Creating Immersive Software Experiences",
     "blog.article9.date": "April 15, 2024",
     
-    "home.more_sections_coming": "More sections coming soon..."
-}
-,
+    "home.more_sections_coming": "More sections coming soon...",
     
     "blog.single.title": "Blog Article",
     "blog.single.breadcrumb": "Article",
@@ -388,4 +386,5 @@
     "training.single.pricing.cta": "Choose this pack",
     
     "training.content.title": "Our Training",
-    "training.content.description": "Discover our professional training adapted to your needs.",
+    "training.content.description": "Discover our professional training adapted to your needs."
+}

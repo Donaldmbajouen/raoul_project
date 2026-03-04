@@ -138,3 +138,11 @@ Route::get('/formation/{slug}', function ($slug) {
     
     return view('training-single', compact('training'));
 })->name('training.show');
+
+// Language Switcher
+Route::get('/lang/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'fr'])) {
+        session(['locale' => $locale]);
+    }
+    return redirect()->back();
+})->name('lang.switch');
