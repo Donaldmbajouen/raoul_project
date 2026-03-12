@@ -15,7 +15,7 @@ return new class extends Migration
             $table->enum('category', ['SR', 'GL']);
             $table->text('short_description');
             $table->longText('full_description');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->string('icon')->nullable();
             $table->decimal('base_price', 10, 2)->nullable();
             $table->integer('display_order')->default(0);

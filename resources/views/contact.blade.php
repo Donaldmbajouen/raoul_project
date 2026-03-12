@@ -138,7 +138,13 @@
                         {{ __('contact.form.title') }}
                     </h3>
                     
-                    <form action="#" method="POST" class="space-y-6">
+                    @if(session('success'))
+                    <div class="mb-6 bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-xl">
+                        {{ session('success') }}
+                    </div>
+                    @endif
+                    
+                    <form action="{{ route('contact.store') }}" method="POST" class="space-y-6">
                         @csrf
                         
                         <!-- Name -->
@@ -146,9 +152,10 @@
                             <label for="name" class="block text-sm font-semibold text-gray-900 mb-2">
                                 {{ __('contact.form.name') }}
                             </label>
-                            <input type="text" id="name" name="name" required
+                            <input type="text" id="name" name="name" value="{{ old('name') }}" required
                                    class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#3B7BF8] focus:ring-2 focus:ring-[#3B7BF8]/20 outline-none transition-all"
                                    placeholder="Votre nom complet">
+                            @error('name')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
                         </div>
                         
                         <!-- Email -->
@@ -156,9 +163,10 @@
                             <label for="email" class="block text-sm font-semibold text-gray-900 mb-2">
                                 {{ __('contact.form.email') }}
                             </label>
-                            <input type="email" id="email" name="email" required
+                            <input type="email" id="email" name="email" value="{{ old('email') }}" required
                                    class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#3B7BF8] focus:ring-2 focus:ring-[#3B7BF8]/20 outline-none transition-all"
                                    placeholder="votre@email.com">
+                            @error('email')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
                         </div>
                         
                         <!-- Phone -->
@@ -166,9 +174,10 @@
                             <label for="phone" class="block text-sm font-semibold text-gray-900 mb-2">
                                 {{ __('contact.form.phone') }}
                             </label>
-                            <input type="tel" id="phone" name="phone"
+                            <input type="tel" id="phone" name="phone" value="{{ old('phone') }}"
                                    class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#3B7BF8] focus:ring-2 focus:ring-[#3B7BF8]/20 outline-none transition-all"
                                    placeholder="+33 1 23 45 67 89">
+                            @error('phone')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
                         </div>
                         
                         <!-- Subject -->
@@ -179,12 +188,13 @@
                             <select id="subject" name="subject" required
                                     class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#3B7BF8] focus:ring-2 focus:ring-[#3B7BF8]/20 outline-none transition-all">
                                 <option value="">Sélectionnez un sujet</option>
-                                <option value="web">Création de site web</option>
-                                <option value="marketing">Marketing digital</option>
-                                <option value="automation">Automatisation & IA</option>
-                                <option value="training">Formations</option>
-                                <option value="other">Autre</option>
+                                <option value="Création de site web" {{ old('subject') == 'Création de site web' ? 'selected' : '' }}>Création de site web</option>
+                                <option value="Marketing digital" {{ old('subject') == 'Marketing digital' ? 'selected' : '' }}>Marketing digital</option>
+                                <option value="Automatisation & IA" {{ old('subject') == 'Automatisation & IA' ? 'selected' : '' }}>Automatisation & IA</option>
+                                <option value="Formations" {{ old('subject') == 'Formations' ? 'selected' : '' }}>Formations</option>
+                                <option value="Autre" {{ old('subject') == 'Autre' ? 'selected' : '' }}>Autre</option>
                             </select>
+                            @error('subject')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
                         </div>
                         
                         <!-- Message -->
@@ -194,7 +204,8 @@
                             </label>
                             <textarea id="message" name="message" rows="5" required
                                       class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#3B7BF8] focus:ring-2 focus:ring-[#3B7BF8]/20 outline-none transition-all resize-none"
-                                      placeholder="Décrivez votre projet..."></textarea>
+                                      placeholder="Décrivez votre projet...">{{ old('message') }}</textarea>
+                            @error('message')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
                         </div>
                         
                         <!-- Submit Button -->

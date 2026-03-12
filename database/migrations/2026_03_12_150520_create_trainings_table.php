@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->text('short_description');
             $table->longText('full_description');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->string('duration')->nullable();
             $table->string('level')->nullable();
             $table->decimal('price', 10, 2)->nullable();

@@ -9,7 +9,7 @@ class Service extends Model
 {
     protected $fillable = [
         'title', 'slug', 'category', 'short_description', 'full_description',
-        'image', 'icon', 'base_price', 'display_order', 'advantages', 'process',
+        'image', 'icon', 'base_price', 'display_order', 'advantages', 'process_steps',
         'faq', 'is_active'
     ];
 
@@ -17,7 +17,7 @@ class Service extends Model
         'base_price' => 'decimal:2',
         'display_order' => 'integer',
         'advantages' => 'array',
-        'process' => 'array',
+        'process_steps' => 'array',
         'faq' => 'array',
         'is_active' => 'boolean',
     ];

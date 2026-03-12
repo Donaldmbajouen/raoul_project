@@ -16,7 +16,7 @@ return new class extends Migration
             $table->text('testimonial');
             $table->integer('rating')->default(5);
             $table->string('photo')->nullable();
-            $table->string('icon');
+            $table->string('icon')->nullable();
             $table->string('bg_color')->default('#3B7BF8');
             $table->integer('display_order')->default(0);
             $table->boolean('is_active')->default(true);

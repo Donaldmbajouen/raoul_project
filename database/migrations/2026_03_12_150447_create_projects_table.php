@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('short_description');
             $table->longText('context');
             $table->longText('summary');
-            $table->string('hero_image');
+            $table->string('hero_image')->nullable();
             $table->json('features')->nullable();
             $table->json('benefits')->nullable();
             $table->json('target_audience')->nullable();
