@@ -139,6 +139,29 @@ Route::get('/formation/{slug}', function ($slug) {
     return view('training-single', compact('training'));
 })->name('training.show');
 
+// Admin Routes
+Route::prefix('admin')->name('admin.')->group(function () {
+    // Auth routes (accessible sans authentification)
+    Route::middleware('guest')->group(function () {
+        Route::get('/login', [App\Http\Controllers\Admin\AuthController::class, 'showLogin'])->name('login');
+        Route::post('/login', [App\Http\Controllers\Admin\AuthController::class, 'login']);
+    });
+    
+    // Protected admin routes
+    Route::middleware('admin')->group(function () {
+        Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+        Route::post('/logout', [App\Http\Controllers\Admin\AuthController::class, 'logout'])->name('logout');
+        
+        // Resources
+        Route::resource('blogs', App\Http\Controllers\Admin\BlogController::class);
+        Route::resource('projects', App\Http\Controllers\Admin\ProjectController::class);
+        Route::resource('services', App\Http\Controllers\Admin\ServiceController::class);
+        Route::resource('trainings', App\Http\Controllers\Admin\TrainingController::class);
+        Route::resource('testimonials', App\Http\Controllers\Admin\TestimonialController::class);
+        Route::resource('contacts', App\Http\Controllers\Admin\ContactController::class)->only(['index', 'show', 'update', 'destroy']);
+    });
+});
+
 // Language Switcher
 Route::get('/lang/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'fr'])) {
