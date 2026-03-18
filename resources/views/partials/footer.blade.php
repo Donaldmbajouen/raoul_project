@@ -4,8 +4,9 @@
             <!-- Logo & Contact -->
             <div>
                 <div class="mb-6">
-                    <div class="flex items-center gap-2 mb-2">
-                        <span class="text-2xl font-display font-bold text-gray-900">{{ strtoupper(config('app.name')) }}</span>
+                    <div class="flex items-center gap-3 mb-2">
+                        <img src="{{ asset('assets/images/logo.png') }}" alt="{{ config('app.name') }}" class="h-10 w-auto">
+                        <span class="text-2xl font-display font-bold text-gray-900">{{ config('app.name') }}</span>
                     </div>
                     <p class="text-xs text-gray-500 italic">{{ __('footer.tagline') }}</p>
                 </div>
@@ -133,7 +134,7 @@
         <div class="pt-8 border-t border-gray-200">
             <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                 <p class="text-sm text-gray-500">
-                    {{ __('footer.copyright', ['year' => date('Y')]) }}
+                    Copyright &copy; {{ date('Y') }} {{ config('app.name') }}. Tous droits réservés.
                 </p>
                 
                 <div class="flex flex-wrap gap-6 text-sm text-gray-500">

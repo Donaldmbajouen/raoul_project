@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $project['title'] ?? 'Projet')
+@section('title', $project->title)
 
 @section('content')
 <!-- Hero Section -->
@@ -17,7 +17,7 @@
         <div class="text-center max-w-3xl mx-auto">
             <!-- Title -->
             <h1 class="text-4xl sm:text-5xl lg:text-6xl font-display font-extrabold text-gray-900 mb-6" data-aos="fade-up">
-                {{ $project['title'] ?? 'Projet' }}
+                {{ $project->title }}
             </h1>
             
             <!-- Breadcrumb -->
@@ -30,7 +30,7 @@
                     Réalisations
                 </a>
                 <span class="text-gray-400">/</span>
-                <span class="text-gray-600">{{ $project['title'] ?? 'Projet' }}</span>
+                <span class="text-gray-600">{{ $project->title }}</span>
             </div>
         </div>
     </div>
@@ -40,9 +40,17 @@
 <section class="py-12 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="relative h-[40vh] lg:h-[50vh] overflow-hidden rounded-3xl shadow-2xl" data-aos="fade-up">
-            <img src="{{ $project['hero_image'] ?? 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2000&auto=format&fit=crop' }}" 
-                 alt="{{ $project['title'] ?? 'Project' }}" 
-                 class="w-full h-full object-cover">
+            @if($project->hero_image)
+                <img src="{{ asset('storage/' . $project->hero_image) }}"
+                     alt="{{ $project->title }}"
+                     class="w-full h-full object-cover">
+            @else
+                <div class="w-full h-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
+                    <svg class="w-24 h-24 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                    </svg>
+                </div>
+            @endif
             <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
         </div>
     </div>
@@ -63,7 +71,7 @@
                             </svg>
                         </div>
                         <div class="text-xs text-gray-500 uppercase tracking-wider mb-1">Date</div>
-                        <div class="text-base font-bold text-gray-900">{{ $project['date'] ?? '10 April 2024' }}</div>
+                        <div class="text-base font-bold text-gray-900">{{ $project->project_date ? $project->project_date->format('d F Y') : '—' }}</div>
                     </div>
                     
                     <!-- Client -->
@@ -74,7 +82,7 @@
                             </svg>
                         </div>
                         <div class="text-xs text-gray-500 uppercase tracking-wider mb-1">Client</div>
-                        <div class="text-base font-bold text-gray-900">{{ $project['client'] ?? 'Phyllis J. Lucero' }}</div>
+                        <div class="text-base font-bold text-gray-900">{{ $project->client ?? '—' }}</div>
                     </div>
                     
                     <!-- Domain -->
@@ -85,7 +93,7 @@
                             </svg>
                         </div>
                         <div class="text-xs text-gray-500 uppercase tracking-wider mb-1">Domaine</div>
-                        <div class="text-base font-bold text-gray-900">{{ $project['domain'] ?? 'www.domainname.com' }}</div>
+                        <div class="text-base font-bold text-gray-900">{{ $project->domain ?? '—' }}</div>
                     </div>
                     
                     <!-- Location -->
@@ -97,7 +105,7 @@
                             </svg>
                         </div>
                         <div class="text-xs text-gray-500 uppercase tracking-wider mb-1">Location</div>
-                        <div class="text-base font-bold text-gray-900">{{ $project['location'] ?? 'New York, USA' }}</div>
+                        <div class="text-base font-bold text-gray-900">{{ $project->location ?? '—' }}</div>
                     </div>
                 </div>
             </div>
@@ -110,7 +118,7 @@
                         Contexte
                     </h2>
                     <div class="prose prose-lg max-w-none text-gray-600 leading-relaxed">
-                        {!! $project['context'] ?? '<p>ISOLUCE, organisme de formation spécialisé dans le digital, cherchait à réduire la charge administrative liée à la création des documents Qualiopi et OPCO.</p><p>La gestion manuelle des conventions, programmes Qualiopi, certificats, feuilles d\'engagement et devis représentait plusieurs heures de travail par dossier, avec un risque d\'erreurs élevé.</p><p>Nous avons mis en place une automatisation intelligente capable de générer instantanément tous les documents nécessaires, quel que soit le financeur.</p>' !!}
+                        {!! $project->context !!}
                     </div>
                 </div>
                 
@@ -120,24 +128,17 @@
                         Résumé Du Projet :
                     </h2>
                     <div class="prose prose-lg max-w-none text-gray-600 leading-relaxed mb-6">
-                        {!! $project['summary'] ?? '<p>Nous avons développé un workflow avancé utilisant n8n, Google Docs, Google Drive, Monday.com, Axonaut et l\'IA GPT pour automatiser l\'ensemble du processus documentaire.</p>' !!}
+                        {!! $project->summary !!}
                     </div>
                     
                     <!-- Le système permet -->
+                    @if($project->features && count($project->features) > 0)
                     <div class="bg-blue-50 rounded-2xl p-8">
                         <h3 class="text-xl font-display font-bold text-gray-900 mb-4">
                             Le système permet :
                         </h3>
                         <ul class="space-y-3">
-                            @foreach($project['features'] ?? [
-                                'La récupération automatique des données depuis Monday.com',
-                                'La génération de tous les documents Qualiopi',
-                                'La production des documents adaptés à chaque financeur OPCO / FAF',
-                                'La création automatique du devis dans Axonaut',
-                                'La rédaction du programme Qualiopi',
-                                'Le classement automatique des documents dans Google Drive',
-                                'Une notification Slack pour signaler la création du dossier'
-                            ] as $feature)
+                            @foreach($project->features as $feature)
                             <li class="flex items-start gap-3">
                                 <svg class="w-6 h-6 text-[#3B7BF8] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -147,43 +148,41 @@
                             @endforeach
                         </ul>
                     </div>
+                    @endif
                 </div>
                 
                 <!-- Bénéfices obtenus -->
+                @if($project->benefits && count($project->benefits) > 0)
                 <div class="mb-12" data-aos="fade-up" data-aos-delay="200">
                     <h2 class="text-3xl lg:text-4xl font-display font-bold text-gray-900 mb-6">
                         Bénéfices obtenus :
                     </h2>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        @foreach($project['benefits'] ?? [
-                            ['icon' => '⏱️', 'text' => '95 % de temps gagné'],
-                            ['icon' => '📋', 'text' => 'Documents conformes Qualiopi & OPCO'],
-                            ['icon' => '🎯', 'text' => 'Zéro erreur humaine'],
-                            ['icon' => '⚡', 'text' => 'Dossier complet prêt en moins d\'une minute'],
-                            ['icon' => '🔄', 'text' => 'Process automatique, fiable et scalable']
-                        ] as $benefit)
+                        @foreach($project->benefits as $benefit)
                         <div class="flex items-center gap-3 bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-                            <span class="text-2xl">{{ $benefit['icon'] }}</span>
-                            <span class="text-gray-700 font-medium text-sm">{{ $benefit['text'] }}</span>
+                            @if(is_array($benefit))
+                                <span class="text-2xl">{{ $benefit['icon'] ?? '✓' }}</span>
+                                <span class="text-gray-700 font-medium text-sm">{{ $benefit['text'] ?? $benefit }}</span>
+                            @else
+                                <svg class="w-5 h-5 text-[#3B7BF8] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                <span class="text-gray-700 font-medium text-sm">{{ $benefit }}</span>
+                            @endif
                         </div>
                         @endforeach
                     </div>
                 </div>
+                @endif
                 
-                <!-- Pour qui cette automatisation est idéale -->
+                <!-- Pour qui -->
+                @if($project->target_audience && count($project->target_audience) > 0)
                 <div data-aos="fade-up" data-aos-delay="300">
                     <h2 class="text-3xl lg:text-4xl font-display font-bold text-gray-900 mb-6">
                         Pour qui cette automatisation est idéale ?
                     </h2>
                     <ul class="space-y-3">
-                        @foreach($project['target_audience'] ?? [
-                            'Organismes de formation',
-                            'Centres de formation internes',
-                            'Formateurs indépendants',
-                            'CFA / Écoles',
-                            'Services RH',
-                            'Toutes structures travaillant avec des OPCO ou financeurs (FIFPL, FAF, etc.)'
-                        ] as $audience)
+                        @foreach($project->target_audience as $audience)
                         <li class="flex items-start gap-3">
                             <svg class="w-5 h-5 text-[#3B7BF8] flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
@@ -193,12 +192,14 @@
                         @endforeach
                     </ul>
                 </div>
+                @endif
             </div>
         </div>
     </div>
 </section>
 
 <!-- Gallery Section -->
+@if($project->gallery && count($project->gallery) > 0)
 <section class="py-20 lg:py-28 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-3xl lg:text-4xl font-display font-bold text-gray-900 mb-12 text-center" data-aos="fade-up">
@@ -206,17 +207,11 @@
         </h2>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            @foreach($project['gallery'] ?? [
-                'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=800&auto=format&fit=crop',
-                'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop',
-                'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop',
-                'https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=800&auto=format&fit=crop',
-                'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop',
-                'https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=800&auto=format&fit=crop'
-            ] as $index => $image)
-            <div class="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
-                <img src="{{ $image }}" 
-                     alt="Gallery image {{ $index + 1 }}" 
+            @foreach($project->gallery as $index => $image)
+            <div class="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer"
+                 data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
+                <img src="{{ asset('storage/' . $image) }}"
+                     alt="Galerie image {{ $index + 1 }}"
                      class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                     <span class="text-white font-semibold">Image {{ $index + 1 }}</span>
@@ -226,6 +221,7 @@
         </div>
     </div>
 </section>
+@endif
 
 <!-- CTA Section -->
 <section class="py-20 lg:py-28 bg-white">

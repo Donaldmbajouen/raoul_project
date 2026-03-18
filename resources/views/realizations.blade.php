@@ -38,170 +38,73 @@
         <!-- Tabs Navigation -->
         <div class="flex flex-wrap items-center justify-center gap-3 mb-16" data-aos="fade-up">
             <button class="tab-btn active px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 bg-[#3B7BF8] text-white shadow-lg" data-category="all">
-                All
+                Tous
             </button>
-            <button class="tab-btn px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 bg-gray-100 text-gray-700 hover:bg-gray-200" data-category="automatisation">
-                Automatisation & Agent IA
+            @foreach($categories as $cat)
+            <button class="tab-btn px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 bg-gray-100 text-gray-700 hover:bg-gray-200" data-category="{{ Str::slug($cat) }}">
+                {{ $cat }}
             </button>
-            <button class="tab-btn px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 bg-gray-100 text-gray-700 hover:bg-gray-200" data-category="conception">
-                Conception Graphique
-            </button>
-            <button class="tab-btn px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 bg-gray-100 text-gray-700 hover:bg-gray-200" data-category="web">
-                Création De Site Web
-            </button>
-            <button class="tab-btn px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 bg-gray-100 text-gray-700 hover:bg-gray-200" data-category="marketing">
-                Marketing Digital
-            </button>
+            @endforeach
         </div>
-        
-        <!-- Projects Grid - 2 per row -->
+
+        <!-- Projects Grid -->
         <div id="projects-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            
-            <!-- Project Card 1 - Automatisation -->
-            <div class="project-card bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group" data-category="automatisation" data-aos="fade-up">
+            @forelse($projects as $project)
+            @php
+                $categoryColors = [
+                    'Automatisation & Agent IA' => 'bg-[#3B7BF8]',
+                    'Création De Site Web'       => 'bg-green-500',
+                    'Marketing Digital'          => 'bg-purple-500',
+                    'Conception Graphique'       => 'bg-yellow-500',
+                ];
+                $badgeColor = $categoryColors[$project->category] ?? 'bg-gray-500';
+                $delay = $loop->index * 100;
+            @endphp
+            <div class="project-card bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group"
+                 data-category="{{ Str::slug($project->category) }}"
+                 data-aos="fade-up" data-aos-delay="{{ $delay }}">
                 <div class="relative overflow-hidden h-80">
-                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop" 
-                         alt="Automatisation OPCO" 
-                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    @if($project->hero_image)
+                        <img src="{{ asset('storage/' . $project->hero_image) }}"
+                             alt="{{ $project->title }}"
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    @else
+                        <div class="w-full h-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
+                            <svg class="w-20 h-20 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                    @endif
                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                     <div class="absolute top-4 left-4">
-                        <span class="bg-[#3B7BF8] text-white text-xs font-bold px-4 py-2 rounded-full">Automatisation & Agent IA</span>
+                        <span class="{{ $badgeColor }} text-white text-xs font-bold px-4 py-2 rounded-full">{{ $project->category }}</span>
                     </div>
                 </div>
                 <div class="p-8">
                     <h3 class="text-2xl font-display font-bold text-gray-900 mb-3 group-hover:text-[#3B7BF8] transition-colors">
-                        Automatisez Vos Dossiers OPCO & Qualiopi
+                        {{ $project->title }}
                     </h3>
                     <p class="text-gray-600 text-sm leading-relaxed mb-6">
-                        Automatisation des dossiers OPCO (Afdas, Akto, ATLAS, OPCO EP, FAFIH, ADEFICE...) et des documents Qualiopi pour accélérer la gestion administrative des organismes de formation et services RH.
+                        {{ $project->short_description }}
                     </p>
-                    <a href="{{ route('project.show', 'automatisation-opco-qualiopi') }}" class="inline-flex items-center gap-2 text-[#3B7BF8] font-semibold text-sm hover:gap-3 transition-all">
+                    <a href="{{ route('project.show', $project->slug) }}" class="inline-flex items-center gap-2 text-[#3B7BF8] font-semibold text-sm hover:gap-3 transition-all">
                         Voir le projet →
                     </a>
                 </div>
             </div>
-            
-            <!-- Project Card 2 - Web -->
-            <div class="project-card bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group" data-category="web" data-aos="fade-up" data-aos-delay="100">
-                <div class="relative overflow-hidden h-80">
-                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop" 
-                         alt="Site E-Commerce" 
-                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                    <div class="absolute top-4 left-4">
-                        <span class="bg-green-500 text-white text-xs font-bold px-4 py-2 rounded-full">Création De Site Web</span>
-                    </div>
-                </div>
-                <div class="p-8">
-                    <h3 class="text-2xl font-display font-bold text-gray-900 mb-3 group-hover:text-[#3B7BF8] transition-colors">
-                        Site E-Commerce: Les Délices D'afriques
-                    </h3>
-                    <p class="text-gray-600 text-sm leading-relaxed mb-6">
-                        Création d'un site e-commerce moderne et immersif pour Fadel à 937, permettant de célébrer ses jus africains artisanaux et d'améliorer sa visibilité, sa crédibilité et sa conversion en ligne.
-                    </p>
-                    <a href="#" class="inline-flex items-center gap-2 text-[#3B7BF8] font-semibold text-sm hover:gap-3 transition-all">
-                        Voir le projet →
-                    </a>
-                </div>
+            @empty
+            <div class="col-span-2 text-center py-20 text-gray-400">
+                <p class="text-lg">Aucun projet disponible pour le moment.</p>
             </div>
-            
-            <!-- Project Card 3 - Marketing -->
-            <div class="project-card bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group" data-category="marketing" data-aos="fade-up" data-aos-delay="200">
-                <div class="relative overflow-hidden h-80">
-                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop" 
-                         alt="Campagne Marketing" 
-                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                    <div class="absolute top-4 left-4">
-                        <span class="bg-purple-500 text-white text-xs font-bold px-4 py-2 rounded-full">Marketing Digital</span>
-                    </div>
-                </div>
-                <div class="p-8">
-                    <h3 class="text-2xl font-display font-bold text-gray-900 mb-3 group-hover:text-[#3B7BF8] transition-colors">
-                        Campagne Marketing Digital 360°
-                    </h3>
-                    <p class="text-gray-600 text-sm leading-relaxed mb-6">
-                        Stratégie marketing complète incluant SEO, publicités ciblées, gestion des réseaux sociaux et création de contenu pour maximiser la visibilité et les conversions.
-                    </p>
-                    <a href="#" class="inline-flex items-center gap-2 text-[#3B7BF8] font-semibold text-sm hover:gap-3 transition-all">
-                        Voir le projet →
-                    </a>
-                </div>
-            </div>
-            
-            <!-- Project Card 4 - Conception -->
-            <div class="project-card bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group" data-category="conception" data-aos="fade-up" data-aos-delay="300">
-                <div class="relative overflow-hidden h-80">
-                    <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=1200&auto=format&fit=crop" 
-                         alt="Identité Visuelle" 
-                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                    <div class="absolute top-4 left-4">
-                        <span class="bg-yellow-500 text-white text-xs font-bold px-4 py-2 rounded-full">Conception Graphique</span>
-                    </div>
-                </div>
-                <div class="p-8">
-                    <h3 class="text-2xl font-display font-bold text-gray-900 mb-3 group-hover:text-[#3B7BF8] transition-colors">
-                        Identité Visuelle Complète
-                    </h3>
-                    <p class="text-gray-600 text-sm leading-relaxed mb-6">
-                        Création d'une identité visuelle moderne et cohérente incluant logo, charte graphique, supports de communication et déclinaisons digitales pour renforcer l'image de marque.
-                    </p>
-                    <a href="#" class="inline-flex items-center gap-2 text-[#3B7BF8] font-semibold text-sm hover:gap-3 transition-all">
-                        Voir le projet →
-                    </a>
-                </div>
-            </div>
-            
-            <!-- Project Card 5 - Web -->
-            <div class="project-card bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group" data-category="web" data-aos="fade-up" data-aos-delay="100">
-                <div class="relative overflow-hidden h-80">
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop" 
-                         alt="Application Web" 
-                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                    <div class="absolute top-4 left-4">
-                        <span class="bg-green-500 text-white text-xs font-bold px-4 py-2 rounded-full">Création De Site Web</span>
-                    </div>
-                </div>
-                <div class="p-8">
-                    <h3 class="text-2xl font-display font-bold text-gray-900 mb-3 group-hover:text-[#3B7BF8] transition-colors">
-                        Plateforme SaaS Innovante
-                    </h3>
-                    <p class="text-gray-600 text-sm leading-relaxed mb-6">
-                        Développement d'une application web SaaS complète avec tableau de bord intuitif, gestion des utilisateurs et intégrations API pour optimiser les processus métier.
-                    </p>
-                    <a href="#" class="inline-flex items-center gap-2 text-[#3B7BF8] font-semibold text-sm hover:gap-3 transition-all">
-                        Voir le projet →
-                    </a>
-                </div>
-            </div>
-            
-            <!-- Project Card 6 - Automatisation -->
-            <div class="project-card bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group" data-category="automatisation" data-aos="fade-up" data-aos-delay="200">
-                <div class="relative overflow-hidden h-80">
-                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1200&auto=format&fit=crop" 
-                         alt="Agent IA" 
-                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                    <div class="absolute top-4 left-4">
-                        <span class="bg-[#3B7BF8] text-white text-xs font-bold px-4 py-2 rounded-full">Automatisation & Agent IA</span>
-                    </div>
-                </div>
-                <div class="p-8">
-                    <h3 class="text-2xl font-display font-bold text-gray-900 mb-3 group-hover:text-[#3B7BF8] transition-colors">
-                        Assistant IA Conversationnel
-                    </h3>
-                    <p class="text-gray-600 text-sm leading-relaxed mb-6">
-                        Développement d'un agent IA intelligent pour automatiser le support client, répondre aux questions fréquentes et améliorer l'expérience utilisateur 24/7.
-                    </p>
-                    <a href="#" class="inline-flex items-center gap-2 text-[#3B7BF8] font-semibold text-sm hover:gap-3 transition-all">
-                        Voir le projet →
-                    </a>
-                </div>
-            </div>
-            
+            @endforelse
         </div>
+
+        <!-- Pagination -->
+        @if($projects->hasPages())
+        <div class="mt-12 flex justify-center">
+            {{ $projects->links() }}
+        </div>
+        @endif
     </div>
 </section>
 
@@ -236,35 +139,27 @@
     // Tabs Filtering
     const tabBtns = document.querySelectorAll('.tab-btn');
     const projectCards = document.querySelectorAll('.project-card');
-    
+
     tabBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             const category = btn.getAttribute('data-category');
-            
-            // Update active tab
+
             tabBtns.forEach(b => {
                 b.classList.remove('active', 'bg-[#3B7BF8]', 'text-white', 'shadow-lg');
                 b.classList.add('bg-gray-100', 'text-gray-700');
             });
             btn.classList.add('active', 'bg-[#3B7BF8]', 'text-white', 'shadow-lg');
             btn.classList.remove('bg-gray-100', 'text-gray-700');
-            
-            // Filter projects
+
             projectCards.forEach(card => {
                 const cardCategory = card.getAttribute('data-category');
-                
                 if (category === 'all' || cardCategory === category) {
                     card.style.display = 'block';
-                    setTimeout(() => {
-                        card.style.opacity = '1';
-                        card.style.transform = 'scale(1)';
-                    }, 10);
+                    setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'scale(1)'; }, 10);
                 } else {
                     card.style.opacity = '0';
                     card.style.transform = 'scale(0.9)';
-                    setTimeout(() => {
-                        card.style.display = 'none';
-                    }, 300);
+                    setTimeout(() => { card.style.display = 'none'; }, 300);
                 }
             });
         });
