@@ -5,19 +5,15 @@
 @section('content')
 <!-- Hero Section -->
 <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
-    <!-- Video Background -->
-    <video autoplay muted loop playsinline class="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto -translate-x-1/2 -translate-y-1/2 object-cover" poster="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2000&auto=format&fit=crop">
-        <source src="https://player.vimeo.com/external/434045526.hd.mp4?s=c27eecc69a27dbc4ff2b87d38afc35f1a9e7c02d&profile_id=175" type="video/mp4">
-        <source src="https://assets.mixkit.co/videos/preview/mixkit-programmer-working-on-code-on-a-laptop-4904-large.mp4" type="video/mp4">
+    <!-- Vidéo de fond -->
+    <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
+        <source src="{{ asset('assets/videos/video.mp4') }}" type="video/mp4">
     </video>
-    
-    <!-- Fallback Background Image (if video fails) -->
-    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2000&auto=format&fit=crop');"></div>
-    
+
     <!-- Overlay -->
-    <div class="absolute inset-0 bg-gradient-to-br from-black/75 via-black/60 to-blue-900/20"></div>
+    <div class="absolute inset-0 bg-gradient-to-br from-black/75 via-black/60 to-blue-900/20 z-10"></div>
     
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 text-center">
+    <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 text-center">
         <!-- Badge -->
         <div class="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 text-xs font-semibold text-white/90 backdrop-blur-md mb-8 uppercase tracking-wider" data-aos="fade-down">
             {{ __('home.hero.badge') }}
@@ -128,26 +124,34 @@
         
         <!-- Services Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <x-service-card 
-                :title="__('home.services.service1.title')"
-                :description="__('home.services.service1.description')"
-                image="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=800&auto=format&fit=crop"
-                delay="100"
-            />
-            
-            <x-service-card 
-                :title="__('home.services.service2.title')"
-                :description="__('home.services.service2.description')"
-                image="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop"
-                delay="200"
-            />
-            
-            <x-service-card 
-                :title="__('home.services.service3.title')"
-                :description="__('home.services.service3.description')"
-                image="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=800&auto=format&fit=crop"
-                delay="300"
-            />
+            @forelse($services->take(3) as $service)
+            <a href="{{ route('services.show', $service->slug) }}"
+               class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 group"
+               data-aos="fade-up" data-aos-delay="{{ ($loop->index + 1) * 100 }}">
+                <div class="flex items-start justify-between mb-6">
+                    <h3 class="text-2xl lg:text-3xl font-display font-bold text-gray-900 leading-tight pr-4 group-hover:text-[#3B7BF8] transition-colors">
+                        {{ $service->title }}
+                    </h3>
+                    <div class="w-16 h-16 rounded-full bg-[#3B7BF8] flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M17 7H7M17 7V17"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="w-full h-px bg-gray-200 mb-6"></div>
+                <p class="text-gray-600 text-base leading-relaxed mb-8">
+                    {{ $service->short_description }}
+                </p>
+                @if($service->image)
+                <div class="relative overflow-hidden rounded-3xl">
+                    <img src="{{ asset('storage/' . $service->image) }}" alt="{{ $service->title }}"
+                         class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                @endif
+            </a>
+            @empty
+            <div class="col-span-3 text-center py-10 text-gray-400">Aucun service disponible.</div>
+            @endforelse
         </div>
     </div>
 </section>
@@ -174,19 +178,48 @@
         
         <!-- Portfolio Cards - 2 per row -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <x-portfolio-card 
-                :title="__('home.portfolio.project1.title')"
-                :description="__('home.portfolio.project1.description')"
-                image="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop"
-                delay="100"
-            />
-            
-            <x-portfolio-card 
-                :title="__('home.portfolio.project2.title')"
-                :description="__('home.portfolio.project2.description')"
-                image="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop"
-                delay="200"
-            />
+            @forelse($featuredProjects as $project)
+            @php
+                $categoryColors = [
+                    'Automatisation & Agent IA' => 'bg-[#3B7BF8]',
+                    'Création De Site Web'       => 'bg-green-500',
+                    'Marketing Digital'          => 'bg-purple-500',
+                    'Conception Graphique'       => 'bg-yellow-500',
+                ];
+                $badgeColor = $categoryColors[$project->category] ?? 'bg-gray-500';
+            @endphp
+            <article class="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group"
+                     data-aos="fade-up" data-aos-delay="{{ ($loop->index + 1) * 100 }}">
+                <div class="relative overflow-hidden h-72">
+                    @if($project->hero_image)
+                        <img src="{{ asset('storage/' . $project->hero_image) }}" alt="{{ $project->title }}"
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    @else
+                        <div class="w-full h-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
+                            <svg class="w-20 h-20 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                    @endif
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                    <div class="absolute top-4 left-4">
+                        <span class="{{ $badgeColor }} text-white text-xs font-bold px-3 py-1.5 rounded-full">{{ $project->category }}</span>
+                    </div>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-xl font-display font-bold text-gray-900 mb-3 group-hover:text-[#3B7BF8] transition-colors">
+                        {{ $project->title }}
+                    </h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-5">{{ Str::limit($project->short_description, 120) }}</p>
+                    <a href="{{ route('project.show', $project->slug) }}"
+                       class="inline-flex items-center gap-2 text-[#3B7BF8] font-semibold text-sm hover:gap-3 transition-all">
+                        Voir le projet →
+                    </a>
+                </div>
+            </article>
+            @empty
+            <div class="col-span-2 text-center py-10 text-gray-400">Aucun projet en vedette.</div>
+            @endforelse
         </div>
     </div>
 </section>
@@ -285,26 +318,33 @@
         
         <!-- Blog Cards -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <x-blog-card 
-                :title="__('home.blog.article1.title')"
-                :date="__('home.blog.article1.date')"
-                image="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop"
-                delay="100"
-            />
-            
-            <x-blog-card 
-                :title="__('home.blog.article2.title')"
-                :date="__('home.blog.article2.date')"
-                image="https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=800&auto=format&fit=crop"
-                delay="200"
-            />
-            
-            <x-blog-card 
-                :title="__('home.blog.article3.title')"
-                :date="__('home.blog.article3.date')"
-                image="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=800&auto=format&fit=crop"
-                delay="300"
-            />
+            @forelse($recentBlogs as $blog)
+            <article class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group"
+                     data-aos="fade-up" data-aos-delay="{{ ($loop->index + 1) * 100 }}">
+                <a href="{{ route('blog.single', $blog->slug) }}" class="block relative h-56 overflow-hidden">
+                    @if($blog->image)
+                        <img src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->title }}"
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    @else
+                        <div class="w-full h-full bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center">
+                            <svg class="w-14 h-14 text-blue-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>
+                            </svg>
+                        </div>
+                    @endif
+                </a>
+                <div class="p-6">
+                    <div class="text-gray-400 text-xs font-medium mb-3">
+                        {{ $blog->published_at ? $blog->published_at->format('d M Y') : '' }}
+                    </div>
+                    <h3 class="text-lg font-display font-bold text-gray-900 leading-tight group-hover:text-[#3B7BF8] transition-colors">
+                        <a href="{{ route('blog.single', $blog->slug) }}">{{ $blog->title }}</a>
+                    </h3>
+                </div>
+            </article>
+            @empty
+            <div class="col-span-3 text-center py-10 text-gray-400">Aucun article disponible.</div>
+            @endforelse
         </div>
     </div>
 </section>
@@ -322,5 +362,7 @@
         once: true,
         offset: 100
     });
+
+
 </script>
 @endpush

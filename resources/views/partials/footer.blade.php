@@ -92,38 +92,38 @@
                 <h3 class="text-sm font-bold text-gray-900 mb-6 uppercase tracking-wider">{{ __('footer.services') }}</h3>
                 <ul class="space-y-3">
                     <li>
-                        <a href="{{ route('services') }}" class="text-sm text-gray-600 hover:text-[#3B7BF8] transition-colors">
-                            {{ __('footer.service1') }}
+                        <a href="{{ route('services.show', 'reseaux-informatiques') }}" class="text-sm text-gray-600 hover:text-[#3B7BF8] transition-colors">
+                            {{ __('nav.service_network') }}
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('services') }}" class="text-sm text-gray-600 hover:text-[#3B7BF8] transition-colors">
-                            {{ __('footer.service2') }}
+                        <a href="{{ route('services.show', 'cloud-hebergement') }}" class="text-sm text-gray-600 hover:text-[#3B7BF8] transition-colors">
+                            {{ __('nav.service_cloud') }}
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('services') }}" class="text-sm text-gray-600 hover:text-[#3B7BF8] transition-colors">
-                            {{ __('footer.service3') }}
+                        <a href="{{ route('services.show', 'data-ia') }}" class="text-sm text-gray-600 hover:text-[#3B7BF8] transition-colors">
+                            {{ __('nav.service_data') }}
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('services') }}" class="text-sm text-gray-600 hover:text-[#3B7BF8] transition-colors">
-                            {{ __('footer.service4') }}
+                        <a href="{{ route('services.show', 'agents-ia') }}" class="text-sm text-gray-600 hover:text-[#3B7BF8] transition-colors">
+                            {{ __('nav.service_ai_agents') }}
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('services') }}" class="text-sm text-gray-600 hover:text-[#3B7BF8] transition-colors">
-                            {{ __('footer.service5') }}
+                        <a href="{{ route('services.show', 'ia-automatisation') }}" class="text-sm text-gray-600 hover:text-[#3B7BF8] transition-colors">
+                            {{ __('nav.service_ai_automation') }}
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('services') }}" class="text-sm text-gray-600 hover:text-[#3B7BF8] transition-colors">
-                            {{ __('footer.service6') }}
+                        <a href="{{ route('services.show', 'logiciels-gestion') }}" class="text-sm text-gray-600 hover:text-[#3B7BF8] transition-colors">
+                            {{ __('nav.service_software') }}
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('services') }}" class="text-sm text-gray-600 hover:text-[#3B7BF8] transition-colors">
-                            {{ __('footer.service7') }}
+                        <a href="{{ route('services.show', 'conseils-audit') }}" class="text-sm text-gray-600 hover:text-[#3B7BF8] transition-colors">
+                            {{ __('nav.service_consulting') }}
                         </a>
                     </li>
                 </ul>

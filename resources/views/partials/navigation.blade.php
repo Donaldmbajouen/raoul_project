@@ -20,12 +20,12 @@
                 
                 <!-- Services Dropdown -->
                 <div class="relative group">
-                    <button class="px-3 py-2 text-sm font-medium {{ request()->routeIs('home') ? 'text-white/90 hover:text-white hover:bg-white/10' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' }} rounded-md transition-all flex items-center gap-1">
+                    <a href="{{ route('services') }}" class="px-3 py-2 text-sm font-medium {{ request()->routeIs('home') ? 'text-white/90 hover:text-white hover:bg-white/10' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' }} rounded-md transition-all flex items-center gap-1">
                         {{ __('nav.services') }}
                         <svg class="w-3 h-3 opacity-70 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 12 12" stroke-width="2">
                             <path d="M2 4l4 4 4-4"/>
                         </svg>
-                    </button>
+                    </a>
                     
                     <!-- Dropdown Menu -->
                     <div class="absolute top-full left-0 mt-2 w-[700px] bg-white rounded-2xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[110]">
