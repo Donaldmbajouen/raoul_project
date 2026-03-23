@@ -4,8 +4,9 @@
             <!-- Logo & Contact -->
             <div>
                 <div class="mb-6">
-                    <div class="flex items-center gap-2 mb-2">
-                        <span class="text-2xl font-display font-bold text-gray-900">{{ strtoupper(config('app.name')) }}</span>
+                    <div class="flex items-center gap-3 mb-2">
+                        <img src="{{ asset('assets/images/logo.png') }}" alt="{{ config('app.name') }}" class="h-10 w-auto">
+                        <span class="text-2xl font-display font-bold text-gray-900">{{ config('app.name') }}</span>
                     </div>
                     <p class="text-xs text-gray-500 italic">{{ __('footer.tagline') }}</p>
                 </div>
@@ -91,38 +92,38 @@
                 <h3 class="text-sm font-bold text-gray-900 mb-6 uppercase tracking-wider">{{ __('footer.services') }}</h3>
                 <ul class="space-y-3">
                     <li>
-                        <a href="{{ route('services') }}" class="text-sm text-gray-600 hover:text-[#3B7BF8] transition-colors">
-                            {{ __('footer.service1') }}
+                        <a href="{{ route('services.show', 'reseaux-informatiques') }}" class="text-sm text-gray-600 hover:text-[#3B7BF8] transition-colors">
+                            {{ __('nav.service_network') }}
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('services') }}" class="text-sm text-gray-600 hover:text-[#3B7BF8] transition-colors">
-                            {{ __('footer.service2') }}
+                        <a href="{{ route('services.show', 'cloud-hebergement') }}" class="text-sm text-gray-600 hover:text-[#3B7BF8] transition-colors">
+                            {{ __('nav.service_cloud') }}
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('services') }}" class="text-sm text-gray-600 hover:text-[#3B7BF8] transition-colors">
-                            {{ __('footer.service3') }}
+                        <a href="{{ route('services.show', 'data-ia') }}" class="text-sm text-gray-600 hover:text-[#3B7BF8] transition-colors">
+                            {{ __('nav.service_data') }}
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('services') }}" class="text-sm text-gray-600 hover:text-[#3B7BF8] transition-colors">
-                            {{ __('footer.service4') }}
+                        <a href="{{ route('services.show', 'agents-ia') }}" class="text-sm text-gray-600 hover:text-[#3B7BF8] transition-colors">
+                            {{ __('nav.service_ai_agents') }}
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('services') }}" class="text-sm text-gray-600 hover:text-[#3B7BF8] transition-colors">
-                            {{ __('footer.service5') }}
+                        <a href="{{ route('services.show', 'ia-automatisation') }}" class="text-sm text-gray-600 hover:text-[#3B7BF8] transition-colors">
+                            {{ __('nav.service_ai_automation') }}
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('services') }}" class="text-sm text-gray-600 hover:text-[#3B7BF8] transition-colors">
-                            {{ __('footer.service6') }}
+                        <a href="{{ route('services.show', 'logiciels-gestion') }}" class="text-sm text-gray-600 hover:text-[#3B7BF8] transition-colors">
+                            {{ __('nav.service_software') }}
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('services') }}" class="text-sm text-gray-600 hover:text-[#3B7BF8] transition-colors">
-                            {{ __('footer.service7') }}
+                        <a href="{{ route('services.show', 'conseils-audit') }}" class="text-sm text-gray-600 hover:text-[#3B7BF8] transition-colors">
+                            {{ __('nav.service_consulting') }}
                         </a>
                     </li>
                 </ul>
@@ -133,7 +134,7 @@
         <div class="pt-8 border-t border-gray-200">
             <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                 <p class="text-sm text-gray-500">
-                    {{ __('footer.copyright', ['year' => date('Y')]) }}
+                    Copyright &copy; {{ date('Y') }} {{ config('app.name') }}. Tous droits réservés.
                 </p>
                 
                 <div class="flex flex-wrap gap-6 text-sm text-gray-500">

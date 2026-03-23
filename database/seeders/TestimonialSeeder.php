@@ -13,7 +13,7 @@ class TestimonialSeeder extends Seeder
             'client_name' => 'Marie Dubois',
             'company' => 'TechStart SAS',
             'position' => 'CEO',
-            'testimonial' => 'Raoul Projet a transformé notre présence en ligne. Leur expertise en développement web et leur approche personnalisée ont dépassé nos attentes. Le site est magnifique et performant !',
+            'testimonial' => 'Tech Temple a transformé notre présence en ligne. Leur expertise en développement web et leur approche personnalisée ont dépassé nos attentes. Le site est magnifique et performant !',
             'rating' => 5,
             'photo' => null,
             'icon' => null,

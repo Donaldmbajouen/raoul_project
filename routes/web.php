@@ -54,6 +54,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('services', App\Http\Controllers\Admin\ServiceController::class);
         Route::resource('trainings', App\Http\Controllers\Admin\TrainingController::class);
         Route::resource('testimonials', App\Http\Controllers\Admin\TestimonialController::class);
+        Route::resource('partners', App\Http\Controllers\Admin\PartnerController::class);
         Route::resource('contacts', App\Http\Controllers\Admin\ContactController::class)->only(['index', 'show', 'update', 'destroy']);
     });
 });
